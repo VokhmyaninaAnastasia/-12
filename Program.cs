@@ -11,21 +11,22 @@ namespace ConsoleApp1
     {
         static void CalculatePercent(string text)
         {
-            int lower = 0;
-            int upper = 0;
-
+            // внутри функции создается две переменных
+            int lower = 0; // счётчик строчных букв
+            int upper = 0; // счётчик прописных букв
+            // подсчёт букв
             foreach (char c in text)
             {
-                if (char.IsLower(c))
+                if (char.IsLower(c)) //проверяет, является ли символ строчной буквой
                 {
                     lower++;
                 }
-                else if (char.IsUpper(c))
+                else if (char.IsUpper(c)) //проверяет, является ли символ прописной буквой
                 {
                     upper++;
                 }
             }
-
+            //расчёт процентов
             double lowerPercent = (double)lower / text.Length * 100;
             double upperPercent = (double)upper / text.Length * 100;
 
@@ -37,7 +38,7 @@ namespace ConsoleApp1
         {
             Console.Title = "Расчет процентов букв";
 
-            string text = "";
+            string text = String.Empty; // переменная с пустым значением
 
             do
             {
@@ -45,7 +46,7 @@ namespace ConsoleApp1
                 {
                     Console.Write("Введите текст:");
                     text = Console.ReadLine();
-
+                    // проверка введённого текста
                     if (string.IsNullOrWhiteSpace(text))
                     {
                         throw new ArgumentException("Текст не должен быть пустым или состоять только из пробелов.");
@@ -61,7 +62,7 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine("Непредвиденная ошибка: " + ex.Message);
                 }
-
+                // условие повторения цикла
             } while (string.IsNullOrWhiteSpace(text));
             Console.ReadKey();
         }
