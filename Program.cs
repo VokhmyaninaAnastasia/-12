@@ -51,6 +51,9 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Console.Clear();
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Здравствуй!");
             Console.Title = "Расчет процентов букв";
 
             string text = String.Empty; // переменная с пустым значением
@@ -59,27 +62,37 @@ namespace ConsoleApp1
             {
                 try
                 {
-                    Console.Write("Введите текст:");
+                    Console.Write("Введите текст: ");
                     text = Console.ReadLine();
                     // проверка введённого текста
                     if (String.IsNullOrWhiteSpace(text))
                     {
                         throw new ArgumentException("Текст не должен быть пустым или состоять только из пробелов.");
                     }
-
                     CalculatePercent(text);
                 }
                 catch (ArgumentException aex)
                 {
-                    Console.WriteLine("Ошибка: " + aex.Message);
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    HandleError(aex);
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Непредвиденная ошибка: " + ex.Message);
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    HandleError(ex);
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 // условие повторения цикла
             } while (String.IsNullOrWhiteSpace(text));
             Console.ReadKey();
+        }
+        // функция обработки исключений
+        static void HandleError(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Ошибка: " + ex.Message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
