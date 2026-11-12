@@ -1,4 +1,4 @@
-﻿//*****************************************************************************
+//*****************************************************************************
 //*Практическая работа №12                                                    *
 //* Выполнила: Вохмянина А.Р., группа 2-ИСП                                   *
 //* Задание: Организация и использование функций.                             *
@@ -57,6 +57,7 @@ namespace ConsoleApp1
             Console.Title = "Расчет процентов букв";
 
             string text = String.Empty; // переменная с пустым значением
+            bool repeat = true;
 
             do
             {
@@ -83,8 +84,10 @@ namespace ConsoleApp1
                     HandleError(ex);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
-                // условие повторения цикла
-            } while (String.IsNullOrWhiteSpace(text));
+                Console.Write("\nХотите продолжить выполнять программу? (да/нет) ");
+                string answer = Console.ReadLine();
+                repeat = (answer == "да" || answer == "д");
+            } while (repeat);
             Console.ReadKey();
         }
         // функция обработки исключений
