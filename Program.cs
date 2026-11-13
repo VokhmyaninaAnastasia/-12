@@ -19,11 +19,11 @@ namespace ConsoleApp1
             // подсчёт букв
             foreach (char c in text)
             {
-                if (char.IsLower(c)) //проверяет, является ли символ строчной буквой
+                if (Char.IsLower(c)) //проверяет, является ли символ строчной буквой
                 {
                     lower++;
                 }
-                else if (char.IsUpper(c)) //проверяет, является ли символ прописной буквой
+                else if (Char.IsUpper(c)) //проверяет, является ли символ прописной буквой
                 {
                     upper++;
                 }
@@ -47,14 +47,18 @@ namespace ConsoleApp1
             Console.WriteLine($"Процент пробелов:" + Math.Round(spacesPercent, 2) + "%");
             Console.WriteLine($"Процент другие символы:" + Math.Round(otherPercent, 2) + "%");
         }
-
+        // функция обработки исключений
+        static void HandleError(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Ошибка: " + ex.Message);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
         static void Main(string[] args)
         {
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Здравствуй!");
-            Console.Title = "Расчет процентов букв";
 
             string text = String.Empty; // переменная с пустым значением
             bool repeat = true;
@@ -63,6 +67,9 @@ namespace ConsoleApp1
             {
                 try
                 {
+                    Console.Clear ();
+                    Console.WriteLine("Здравствуй!");
+                    Console.Title = "Расчет процентов букв";
                     Console.Write("Введите текст: ");
                     text = Console.ReadLine();
                     // проверка введённого текста
@@ -74,28 +81,17 @@ namespace ConsoleApp1
                 }
                 catch (ArgumentException aex)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     HandleError(aex);
-                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 catch (Exception ex)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     HandleError(ex);
-                    Console.ForegroundColor = ConsoleColor.White;
                 }
-                Console.Write("\nХотите продолжить выполнять программу? (да/нет) ");
+                Console.Write("\nВведите любой символ для продолжения (Enter - выход)");
                 string answer = Console.ReadLine();
-                repeat = (answer == "да" || answer == "д");
+                repeat = !string.IsNullOrEmpty(answer);
             } while (repeat);
             Console.ReadKey();
-        }
-        // функция обработки исключений
-        static void HandleError(Exception ex)
-        {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("Ошибка: " + ex.Message);
-            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
